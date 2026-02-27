@@ -13,18 +13,18 @@ let imageContainer =
 
 async function fetchImages(category) {
     try {
-        let response = 
-        await fetch(`use a API`);
-        if (!response.ok) {
-            throw new Error('Unable to fetch the data');
-        }
-        imageContainerText.innerText = 
-        "Below is your generated Image:";
+        imageContainerText.innerText = "Generating image...";
         imageContainer.style.display = "block";
-        imageGenerated.src = response.url;
-        console.log(response.url);
-    }
-    catch (error) {
+
+        let imageUrl = `https://source.unsplash.com/600x400/?${category},hd`;
+
+        imageGenerated.src = imageUrl;
+
+        imageGenerated.onload = () => {
+            imageContainerText.innerText = "Below is your generated Image:";
+        };
+
+    } catch (error) {
         console.log(error);
     }
 }
