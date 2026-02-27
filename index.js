@@ -1,7 +1,5 @@
 // index.js
 
-alert("JS is connected!");
-
 let generateImageForm = 
     document.getElementById('generate-image-form');
 let formInput = 
@@ -18,23 +16,19 @@ async function fetchImages(category) {
         imageContainer.style.display = "block";
         imageContainerText.innerText = "Generating image...";
 
-        // Text-based image search
-        let imageUrl = `https://loremflickr.com/600/400/${category}`;
+        let response = await fetch(
+            `https://api.unsplash.com/photos/random?query=${category}&client_id=hxXF604LEZpNI5Nt9877dH-3bnn4yjb0SDRQAh2jj2k`
+        );
 
-        imageGenerated.src = imageUrl;
+        let data = await response.json();
 
-        imageGenerated.onload = function () {
-            imageContainerText.innerText =
-                "Below is your generated Image:";
-        };
+        imageGenerated.src = data.urls.regular;
 
-        imageGenerated.onerror = function () {
-            imageContainerText.innerText =
-                "No image found. Try another word.";
-        };
+        imageContainerText.innerText =
+            "Below is your generated Image:";
 
     } catch (error) {
-        imageContainerText.innerText = "Something went wrong!";
+        imageContainerText.innerText = "Failed to fetch image.";
     }
 }
 
@@ -49,6 +43,7 @@ generateImageForm.addEventListener('submit', (e) => {
             "Input field can not be empty!";
     }
 })
+
 
 
 
