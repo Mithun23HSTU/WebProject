@@ -13,19 +13,27 @@ let imageContainer =
 
 async function fetchImages(category) {
     try {
-        imageContainerText.innerText = "Generating image...";
         imageContainer.style.display = "block";
+        imageContainerText.innerText = "Generating image...";
 
-        let imageUrl = `https://source.unsplash.com/600x400/?${category},hd`;
+        // Working API (no key required)
+        let imageUrl = `https://picsum.photos/600/400?random=${Date.now()}`;
 
         imageGenerated.src = imageUrl;
 
-        imageGenerated.onload = () => {
-            imageContainerText.innerText = "Below is your generated Image:";
+        imageGenerated.onload = function () {
+            imageContainerText.innerText = 
+                "Below is your generated Image:";
+        };
+
+        imageGenerated.onerror = function () {
+            imageContainerText.innerText = 
+                "Failed to load image. Try again.";
         };
 
     } catch (error) {
         console.log(error);
+        imageContainerText.innerText = "Something went wrong!";
     }
 }
 
@@ -40,3 +48,4 @@ generateImageForm.addEventListener('submit', (e) => {
             "Input field can not be empty!";
     }
 })
+
