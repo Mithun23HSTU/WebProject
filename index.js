@@ -18,23 +18,22 @@ async function fetchImages(category) {
         imageContainer.style.display = "block";
         imageContainerText.innerText = "Generating image...";
 
-        // Working API (no key required)
-        let imageUrl = `https://picsum.photos/600/400?random=${Date.now()}`;
+        // Text-based image search
+        let imageUrl = `https://loremflickr.com/600/400/${category}`;
 
         imageGenerated.src = imageUrl;
 
         imageGenerated.onload = function () {
-            imageContainerText.innerText = 
+            imageContainerText.innerText =
                 "Below is your generated Image:";
         };
 
         imageGenerated.onerror = function () {
-            imageContainerText.innerText = 
-                "Failed to load image. Try again.";
+            imageContainerText.innerText =
+                "No image found. Try another word.";
         };
 
     } catch (error) {
-        console.log(error);
         imageContainerText.innerText = "Something went wrong!";
     }
 }
@@ -50,5 +49,6 @@ generateImageForm.addEventListener('submit', (e) => {
             "Input field can not be empty!";
     }
 })
+
 
 
