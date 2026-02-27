@@ -1,5 +1,7 @@
 // index.js
 
+alert("JS is connected!");
+
 let generateImageForm = 
     document.getElementById('generate-image-form');
 let formInput = 
@@ -48,4 +50,5 @@ generateImageForm.addEventListener('submit', (e) => {
             "Input field can not be empty!";
     }
 })
+
 
